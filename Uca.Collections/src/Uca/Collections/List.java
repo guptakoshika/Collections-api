@@ -1,9 +1,10 @@
 package Uca.Collections;
 
-public interface List<T> extends collections<Comparable<T>> {
+public interface List<T> extends Collections<T> {
 
-    public void removeSomeIndex();
+    public void removeSomeIndex(int index);
 
-    public T getFromIndex();
+    public T getFromIndex(int index);
 
+    public void add(T element);
 }
