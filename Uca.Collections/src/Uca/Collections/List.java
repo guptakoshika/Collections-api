@@ -2,9 +2,10 @@ package Uca.Collections;
 
 public interface List<T> extends Collections<T> {
 
-    public void removeSomeIndex(int index);
+    public void remove(int index);
 
-    public T getFromIndex(int index);
+    public T get(int index);
 
-    public void add(T element);
+    public void add(T element , int index);
+      
 }
