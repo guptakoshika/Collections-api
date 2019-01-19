@@ -6,4 +6,5 @@ public interface Collections<T> extends Iterable<T> {
     public boolean isEmpty();
     public void clear();
     public int size();
+    public boolean contains(T t);
 }
