@@ -2,6 +2,9 @@ package Uca.Collections;
 
 public class LinkedList<T> implements List<T> {
 
+    private node head;
+    private int index;
+
     private class node {
 
         T data;
@@ -12,34 +15,56 @@ public class LinkedList<T> implements List<T> {
             next = null;
         }
     }
-    private node head;
-    int index;
 
     public LinkedList() {
         index = 0;
     }
 
     @Override
-    public void add(T t) {
-        node temp = head;
-        while (temp.next != null) {
-            temp = temp.next;
-        }
-        node n = new node(t);
-        temp.next = n;
-        head = temp;
+    public void add(T element) {
+        head = add(element, head);
         index++;
     }
 
     @Override
+    public void add(T element, int index) {
+        head = add(element, index, head);
+        index++;
+    }
+
+    private node add(T t, int index, node n) {
+        if (index == 0) {
+            node temp = new node(t);
+            temp.next = n;
+            return temp;
+        }
+        n.next = add(t, index - 1, n.next);
+        return n;
+    }
+
+    private node add(T t, node n) {
+        if (n == null) {
+            return new node(t);
+        }
+        return add(t, n.next);
+    }
+
+    @Override
     public void remove(T t) {
-        node temp = head;
-        while (temp != null && temp != t) {
-            temp = temp.next;
+        head = remove(t, head);
+        index--;
+    }
+
+    private node remove(T t, node n) {
+        if (n == null) {
+            return null;
         }
-        if (temp == null) {
-            return;
+        if (n.data.equals(t)) {
+            return n.next;
         }
+
+        n.next = remove(t, n.next);
+        return n;
     }
 
     @Override
@@ -48,7 +73,12 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public void removeSomeIndex(int index) {
+    public boolean contains(T t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void remove(int index) {
         node temp = head;
         node prev = null;
         int c = 0;
@@ -64,20 +94,22 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public T getFromIndex(int index) {
-
+    public T get(int index) {
         node temp = head;
-        Integer c = 0;
+        int c = 0;
         while (temp.next != null && c != index) {
             temp = temp.next;
             c++;
+        }
+        if (temp == null) {
+            return null;
         }
         return temp.data;
     }
 
     @Override
     public boolean isEmpty() {
-        if (head == null) {
+        if (index == 0) {
             return true;
         }
         return false;
